@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import './app.css';
 
-function App() {
+import Home from './components/Home/Home';
+import ErrorPage from './components/ErrorPage/ErrorPage';
+
+const App = () => {
+
+  const fetchSearchAutocomplete = async (text) => {
+    const url = `http://api.weatherapi.com/v1/search.json?key=${process.env.REACT_APP_API_KEY}&q=${text}`;
+    const data = await fetch(url).then((res) => res.json());
+    return data;
+  }
+
+  const fetchPlaceWeather = async (place) => {
+    const weather = `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${place}&days=4&aqi=no&alerts=yes`;
+    const data = await fetch(weather).then((res) => res.json());
+    return data;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home fetchPlaceWeather={fetchPlaceWeather} fetchSearchAutocomplete={fetchSearchAutocomplete}/>
+          </Route>
+          <Route exact path="/error">
+            <ErrorPage />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
