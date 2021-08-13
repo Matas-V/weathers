@@ -14,6 +14,7 @@ import { GiMoonOrbit } from 'react-icons/gi';
 import { BiCool } from 'react-icons/bi';
 import { ImDroplet } from 'react-icons/im';
 import useStyles from './styles';
+import { StylesProvider } from '@material-ui/styles';
 
 const mainCities = ['London', 'Paris', 'Berlin', 'Vilnius', 'Athens', 'Milan'];
 
@@ -107,20 +108,22 @@ const Home = ({ fetchPlaceWeather, fetchSearchAutocomplete }) => {
 
       <main className={classes.mainDisplay}>
         <Container align="center">
-          <Switch
-            checked={tempUnit}
-            checkedIcon={<RiCelsiusFill />}
-            icon={<RiFahrenheitFill />}
-            onChange={handleTempUnit}
-            color="default"
-            classes={{
-              root: classes.switchRoot,
-              switchBase: classes.switchBase,
-              track: classes.switchTrack,
-              checked: classes.switchBaseChecked,
-              input: classes.switchInput,
-            }}
-          />
+          <StylesProvider injectFirst>
+            <Switch
+              checked={tempUnit}
+              checkedIcon={<RiCelsiusFill />}
+              icon={<RiFahrenheitFill />}
+              onChange={handleTempUnit}
+              color="default"
+              classes={{
+                root: classes.switchRoot,
+                switchBase: classes.switchBase,
+                track: classes.switchTrack,
+                checked: classes.switchBaseChecked,
+                input: classes.switchInput,
+              }}
+            />
+          </StylesProvider>
         </Container>
 
         <Container maxWidth="md">
@@ -176,7 +179,7 @@ const Home = ({ fetchPlaceWeather, fetchSearchAutocomplete }) => {
               </div>
 
               <div>
-                <Container className={classes.windTitle} style={{ maxWidth: `${dividerSize}px` }}>
+                <Container className={classes.windTitle} style={{ maxWidth: `${dividerSize}px`, display: 'flex', }}>
                   <Typography variant="subtitle1"><FaWind className={classes.iconStyles} /><b>Wind Speed, m/s</b></Typography>
                   <div className={classes.divider} />
                 </Container>
@@ -206,30 +209,30 @@ const Home = ({ fetchPlaceWeather, fetchSearchAutocomplete }) => {
             </div>
 
             <div className={classes.scrollbar}>
-              <Container className={classes.astroTitle} style={{ maxWidth: `${dividerSize}px` }}>
+              <Container className={classes.astroTitle} style={{ maxWidth: `${dividerSize}px`, display: 'flex', }}>
                 <Typography variant="subtitle1"><GiMoonOrbit className={classes.iconStyles} /><b>Astro Info</b></Typography>
                 <div className={classes.divider} />
               </Container>
-              <Container className={classes.astroCon}>
+              <div className={classes.astroCon}>
 
-                <CardContent>
+                <CardContent style={{ margin: '0 20px' }}>
                   <Typography variant="subtitle1" gutterBottom className={classes.astroInfo}><WiSunrise className={classes.astroIcons} style={{ color: '#e9c616' }} /><b>Sunrise</b></Typography>
                   <Typography align="center" variant="subtitle2" gutterBottom><b>{astro.sunrise}</b></Typography>
                 </CardContent>
-                <CardContent>
+                <CardContent style={{ margin: '0 20px' }}>
                   <Typography variant="subtitle1" gutterBottom className={classes.astroInfo}><WiSunset className={classes.astroIcons} style={{ color: '#e9c616' }} /><b>Sunset</b></Typography>
                   <Typography align="center" variant="subtitle2" gutterBottom><b>{astro.sunset}</b></Typography>
                 </CardContent>
-                <CardContent>
+                <CardContent style={{ margin: '0 20px' }}>
                   <Typography variant="subtitle1" gutterBottom className={classes.astroInfo}><WiMoonrise className={classes.astroIcons} style={{ color: '#8c98a6' }} /><b>Moonrise</b></Typography>
                   <Typography align="center" variant="subtitle2" gutterBottom><b>{astro.moonrise}</b></Typography>
                 </CardContent>
-                <CardContent>
+                <CardContent style={{ margin: '0 20px' }}>
                   <Typography variant="subtitle1" gutterBottom className={classes.astroInfo}><WiMoonset className={classes.astroIcons} style={{ color: '#8c98a6' }} /><b>Moonset</b></Typography>
                   <Typography align="center" variant="subtitle2" gutterBottom><b>{astro.moonset}</b></Typography>
                 </CardContent>
 
-              </Container>
+              </div>
             </div>
           </Card>
         </Container>

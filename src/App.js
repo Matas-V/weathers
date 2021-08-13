@@ -8,13 +8,13 @@ import ErrorPage from './components/ErrorPage/ErrorPage';
 const App = () => {
 
   const fetchSearchAutocomplete = async (text) => {
-    const url = `http://api.weatherapi.com/v1/search.json?key=${process.env.REACT_APP_API_KEY}&q=${text}`;
+    const url = `https://api.weatherapi.com/v1/search.json?key=${process.env.REACT_APP_API_KEY}&q=${text}`;
     const data = await fetch(url).then((res) => res.json());
     return data;
   }
 
   const fetchPlaceWeather = async (place) => {
-    const weather = `http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${place}&days=4&aqi=no&alerts=yes`;
+    const weather = `https://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${place}&days=4&aqi=no&alerts=yes`;
     const data = await fetch(weather).then((res) => res.json());
     return data;
   }
